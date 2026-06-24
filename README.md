@@ -4,7 +4,9 @@ using time series data to test micom's ability to predict growth
 # Workflow
 ![Alt text](./images/12_5_updated_flowchart.png)
 
-## time_series_data_wrangling_w_parser.py
+# Scripts 
+
+## 1) `scripts/time_series_data_wrangling.py`
 - This script processes OTU tables and metadata for microbiome analysis by:
 1. Filtering OTU data and metadata for specific subjects (anonymized names).
 2. Averaging microbial abundances for each OTU across samples if mulpiple samples are present for a single day.
@@ -12,14 +14,35 @@ using time series data to test micom's ability to predict growth
 4. Combining interpolated time points with real/averaged daily timepoints and preparing them for QIIME2.
 5. Updating metadata to include interpolated samples by generating sample IDs and data types ("Real" or "Interpolated").
 
-The script uses command-line arguments for file paths, output directories, and subject IDs, making it flexible for different datasets.
+
+**Example of use with argparser**: 
+- additional information on the development and use of this script can be found in `./notebooks/time_series_wrangling.ipynb`
+- What each argument does 
+  1.	-n or --input_biom_path: Path to the input BIOM file.
+  2.	-m or --metadata_path: Path to the metadata file.
+  3.	-i or --output_dir: Directory where intermediate files (e.g., interpolated OTU tables) will be saved.
+  4.	-o or --final_output_dir: Directory where final combined outputs will be saved.
+  5.	-l or --subject_ids: List of subject IDs to process.
+```
+%run ../scripts/time_series_data_wrangling_w_parser.py \
+  -i "../data/bangladesh_caseu_otu_corrected_format.biom" \
+  -m "../data/metadata_full_w_times.csv" \
+  -n "../data/interpolated_bioms/" \
+  -o "../data/combined_meta_and_otu_outputs/" \
+  -l F01 M01 M02
+```  
+
+**Inputs**:  
+- OTU table in BIOM format (`./data/bangladesh_caseu_otu_corrected_format.biom`)
+- Metadata file (`./data/metadata_full_w_times.csv`)
+- List of subject IDs to process
 
 **Outputs**:
 - Combined OTU tables for QIIME2 in `.tsv` format.
 - Updated metadata files with real and interpolated sample entries labeled accordingly.
 
 
-## silva_taxonomy_mapping.py
+## 2) `scripts/silva_taxonomy_mapping.py`
 **Purpose**:
 This script processes subject-specific OTU tables and maps OTUs to taxonomy using QIIME2 and the SILVA database.
 The workflow includes converting OTU tables to QIIME2-compatible formats, performing taxonomy classification,
@@ -42,6 +65,27 @@ For each OTU table, the script generates:
 - `<subject_id>_feature_table.qza`: QIIME2 FeatureTable artifact.
 - `<subject_id>_taxonomy.qza`: QIIME2 Taxonomy artifact.
 - `<subject_id>_taxonomy.tsv`: Exported taxonomy in TSV format.
+
+**Arguments**:
+- `-i, --otu_table_dir`: Directory containing subject-specific OTU tables (e.g., *_combined_otu_qiime2.tsv).
+- `-r, --rep_seq_path`: Path to the QIIME2 artifact for representative sequences (e.g., .qza file).
+- `-c, --classifier_path`: Path to the SILVA classifier artifact (e.g., silva-138-99-nb-classifier.qza).
+- `-o, --output_dir`: Directory to store QIIME2 outputs (feature tables, taxonomy, TSV exports).
+
+**Example**:
+```
+    python silva_taxonomy_mapping.py \
+        -i ../data/combined_meta_and_otu_outputs/ \
+        -r ../data/uclust_casey_rep_set.qza \
+        -c ../data/silva-138-99-nb-classifier.qza \
+        -o ../data/qiime_outputs/
+```
+
+**Notes**:
+- Ensure the QIIME2 environment is activated before running the script (the QIIME2 env versions I used can be found in the `./envs` folder.
+- Input files must align with the requirements for QIIME2 taxonomy classification.
+- Example run can be found in `notebooks/time_series_qiime_silva.ipynb`
+
 
 ## calculate_actual_growth_rates_genus_clr.py
 **Purpose**:
