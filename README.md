@@ -1,14 +1,6 @@
 # micom-time-series
 using time series data to test micom's ability to predict growth 
 
-## To Do:
-  - [ ]Update simulate_growth_rates.py and simuate_growth_loop.py documentation
-  - [ ]Add generation of manifest file summary statistics for each folder of pickled models
-  - [ ]Generate list metabolites added to diet_sugg for each pickled model
-  - [ ]Clean up parameter_combo_testing.Rmd and make into executable R script
-  - [ ]Integrate workflow into snakemake 
-
-
 # Workflow
 ![Alt text](./images/12_5_updated_flowchart.png)
 
