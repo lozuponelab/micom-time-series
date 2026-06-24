@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python3 simulate_growth_rates_20260112.py \
+python3 simulate_growth_rates.py \
     --subject_id M01 \
     --model_name agora201_refseq216_genus_1.qza \
     --pickled_gsmm_out ../data/pickled_models/pickled_M01_agora201_gurobi_20260112 \
