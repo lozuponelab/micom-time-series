@@ -275,5 +275,5 @@ flowchart TD
     C[calculate_actual_growth_rates_genus_clr.py via calculate_actual_growth_rates_genus.sh]
     D[simulate_growth_rates.py executed through simulate_growth_loop.sh; diet abbreviations defined in diet_config.sh]
     E[combine_sim_and_real_data.r]
-    F[micom_time_series_validation.qmd]
+    F[notebooks/parameter_combo_testing.qmd]
 ```
