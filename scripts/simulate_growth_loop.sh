@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## This script is being used to test the new functionalities of simulate_growth_rates_edited.py
+## This script is being used to test the new functionalities of simulate_growth_rates.py
 ## e.g. the added_metabolites and manifest_summary output files
 ## I also want to see if redoing the simulations with no other changes produces different results
 ## e.g. will the same parameter combos be ranked the same way and will the same genera be best predicted 
@@ -9,7 +9,7 @@
 source diet_config.sh
 
 # Define arrays of parameters
-SUBJECT_IDS=("M02")
+SUBJECT_IDS=("M01")
 DIETS=("vmh_eu_average_agora.qza" "western_diet_gut_agora.qza" "vmh_high_fiber_agora.qza" "vmh_high_fat_low_carb_agora.qza")
 
 # Define tradeoff values explicitly to prevent "00" issue
