@@ -4,7 +4,7 @@
 source diet_config.sh
 
 # Define arrays of parameters
-SUBJECT_IDS=("M02")
+SUBJECT_IDS=("M01")
 DIETS=("vmh_eu_average_agora.qza" "western_diet_gut_agora.qza" "vmh_high_fiber_agora.qza" "vmh_high_fat_low_carb_agora.qza")
 
 # Define tradeoff values explicitly to prevent "00" issue
